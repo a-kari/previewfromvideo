@@ -4,6 +4,7 @@ import org.bytedeco.javacv.FFmpegFrameGrabber
 import org.bytedeco.javacv.Java2DFrameConverter
 import java.io.File
 import javax.imageio.ImageIO
+import kotlin.math.roundToInt
 
 object App {
 
@@ -25,6 +26,7 @@ object App {
             grabber         = FFmpegFrameGrabber(video)
 
             grabber.start()
+            grabber.setVideoFrameNumber((grabber.lengthInVideoFrames / 2f).roundToInt())
             return ImageIO.write(converter.convert(grabber.grabKeyFrame()), PREVIEW_FORMAT, File(previewPath))
 
         } catch (e: Exception) {
